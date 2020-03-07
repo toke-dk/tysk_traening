@@ -240,7 +240,6 @@ else:
 procent = int((rigtig / 40) * 100)
 
 # efter 1. forsøg
-
 print(f"Finnish! Du fik '{rigtig}' rigte, og '{forkert}' forkerte ")
 print(f'Du fik {procent}% rigtige')
 print("")
