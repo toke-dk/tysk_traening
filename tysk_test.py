@@ -19,11 +19,9 @@ rigtig = 0
 forkert = 0
 
 antal_l = [
-
 ]
 
 forkert_l = [
-
 ]
 
 glade_komentare = [
@@ -33,6 +31,7 @@ glade_komentare = [
     "Sådan dér",
     "Det kører med klatten fister",
     "Du styrer få vildt",
+    "Virkelig flot"
 ]
 
 rand_num = random.randint(0, len(glade_komentare))
@@ -78,7 +77,6 @@ l_ty = [
     "Gesund",
     "Wieder",
     "Hier"
-
 ]
 
 l_da = [
@@ -122,7 +120,6 @@ l_da = [
     "Sund",
     "Igen",
     "Her",
-
 ]
 
 if sprog == "1" and bland.lower() == "nej" or bland.lower() == "n":
