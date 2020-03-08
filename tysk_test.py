@@ -12,7 +12,16 @@ start()
 sprog = input("")
 print()
 
-def ikke_blandede(index_liste):
+while True:
+  if sprog == "1" or sprog == "2":
+    break
+  else:
+    print("Ugyldig kommando")
+    start()
+    sprog = input("")
+    print()
+
+def ordene(index_liste):
   gang = 0
   rigtig = 0
   forkert = 0
@@ -38,7 +47,7 @@ def ikke_blandede(index_liste):
         print()
         forkert = forkert + 1
         gang = gang + 1
-# anden del
+
     elif sprog.lower() == "2":
       word_ty = l_ty[index_liste[gang]]
       word_da = l_da[index_liste[gang]]
@@ -155,35 +164,37 @@ l_da = [
     "Her",
 ]
 
-rand_num = random.randint(0, (len(glade_komentare) - 1))
-øve_liste = []
-for i in range(40):
-  øve_liste.append(i)
-(rigtig, forkert, rest_liste) = ikke_blandede(øve_liste)
-procent = int((rigtig / 40) * 100)  
-# efter 1. forsøg
-clear_screen()
-print(f"Du fik '{rigtig}' rigte, og '{forkert}' forkerte ")
-print(f'Du fik {procent}% rigtige')
-print("")
-print(f"{glade_komentare[rand_num]}")
-input("Nu kommer de forkerte (tryk enter)")
-print("")
-# her 
-gang = 0
-forsøg = 0
-
-while len(rest_liste) > 0:
-  (rigtig, forkert, rest_liste) = ikke_blandede(rest_liste)
-  procent = int((rigtig / 40) * 100)
+if sprog == "1" or sprog == "2":
+  rand_num = random.randint(0, (len(glade_komentare) - 1))
+  øve_liste = []
+  for i in range(40):
+    øve_liste.append(i)
+  (rigtig, forkert, rest_liste) = ordene(øve_liste)
+  procent = int((rigtig / 40) * 100)  
+  # efter 1. forsøg
   clear_screen()
-  print(f"Der er kun {len(rest_liste)} ord tilbage")
+  print(f"Du fik '{rigtig}' rigtige, og '{forkert}' forkerte ")
+  print(f'Du fik {procent}% rigtige')
   print("")
-  forsøg = forsøg + 1
+  print(f"{glade_komentare[rand_num]}")
+  input("Nu kommer de forkerte (tryk enter)")
+  print("")
+  # her 
+  gang = 0
+  forsøg = 0
 
-# helt slutning
-print("Tillykke. Du gjorde det")
-print(f"Det tog dig {forsøg} forsøg at lave 100% rigtige")
-print(f"{glade_komentare[rand_num]}")
+  while len(rest_liste) > 0:
+    (rigtig, forkert, rest_liste) = ordene(rest_liste)
+    procent = int((rigtig / 40) * 100)
+    clear_screen()
+    print(f"Der er kun {len(rest_liste)} ord tilbage")
+    print("")
+    forsøg = forsøg + 1
 
-#39 38 37 36 35
+  # helt slutning
+  print("Tillykke. Du gjorde det")
+  print(f"Det tog dig {forsøg} forsøg at lave 100% rigtige")
+  print(f"{glade_komentare[rand_num]}")
+else:
+  print("Jeg forstår ikke")
+  start()
