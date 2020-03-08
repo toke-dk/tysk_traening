@@ -1,8 +1,14 @@
 #!/usr/bin/env python3
 import random
 
-print("1: Fra Tysk til Dansk. ")
-print("2: Fra Dansk til Tysk. ")
+def start():
+  print("1: Fra Tysk til Dansk. ")
+  print("2: Fra Dansk til Tysk. ")
+
+def clear_screen():
+  print("\033c", end="")
+
+start()
 sprog = input("")
 print()
 
@@ -156,7 +162,8 @@ for i in range(40):
 (rigtig, forkert, rest_liste) = ikke_blandede(øve_liste)
 procent = int((rigtig / 40) * 100)  
 # efter 1. forsøg
-print(f"Finnish! Du fik '{rigtig}' rigte, og '{forkert}' forkerte ")
+clear_screen()
+print(f"Du fik '{rigtig}' rigte, og '{forkert}' forkerte ")
 print(f'Du fik {procent}% rigtige')
 print("")
 print(f"{glade_komentare[rand_num]}")
@@ -169,12 +176,13 @@ forsøg = 0
 while len(rest_liste) > 0:
   (rigtig, forkert, rest_liste) = ikke_blandede(rest_liste)
   procent = int((rigtig / 40) * 100)
-  print(f"Der er kun {rest_liste} ord tilbage")
+  clear_screen()
+  print(f"Der er kun {len(rest_liste)} ord tilbage")
   print("")
   forsøg = forsøg + 1
 
 # helt slutning
-print("Tillykke")
+print("Tillykke. Du gjorde det")
 print(f"Det tog dig {forsøg} forsøg at lave 100% rigtige")
 print(f"{glade_komentare[rand_num]}")
 
