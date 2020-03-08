@@ -21,27 +21,37 @@ def tyskTilDansk():
     gang = gang + 1
     print(gang)
     # her starter spørgsmålene
-    word = l_ty[antal]
-    print(word)
-    svar = input("")
-
-    if svar.lower() == l_da[antal].lower():
-        print("rigtig")
-        print()
-        rigtig = rigtig + 1
-        forkert_l.remove(word)
-        l_da.remove(l_da[antal])
-        l_ty.remove(l_ty[antal])
-        #if antal == 0:
-        #  antal = 0
-        #else:
-        #  antal = antal - 1
-    else:
-        print(f"forkert. '{word}' på dansk er '{l_da[antal]}'")
-        print()
-        forkert = forkert + 1
-        antal = antal + 1
-    continue
+    word_ty = l_ty[antal]
+    word_da = l_da[antal]
+    if sprog.lower() == "1":
+      print(word_ty)
+      svar = input("")
+      if svar.lower() == l_da[antal].lower():
+          print("rigtig")
+          print()
+          rigtig = rigtig + 1
+          l_da.remove(word_da)
+          l_ty.remove(word_ty)
+      else:
+          print(f"forkert. '{word_ty}' på dansk er '{word_da}'")
+          print()
+          forkert = forkert + 1
+          antal = antal + 1
+# anden del
+    elif sprog.lower() == "2":
+        print(word_da)
+        svar = input("")
+        if svar.lower() == l_ty[antal].lower():
+            print("Rigtig")
+            print()
+            rigtig = rigtig + 1
+            l_da.remove(word_da)
+            l_ty.remove(word_ty)
+        else:
+            print(f"forkert. '{word_da}' på tysk er '{word_ty}'")
+            print()
+            forkert = forkert + 1
+            antal = antal + 1
   return (rigtig, forkert)
   
 
@@ -149,103 +159,81 @@ l_da = [
     "Her",
 ]
 
-if sprog == "1" and bland.lower() == "nej" or bland.lower() == "n":
-  forkert_l = l_ty.copy()
+if bland.lower() == "n" or bland.lower() == "nej":
   (rigtig, forkert) = tyskTilDansk()
   print(rigtig)
   print(forkert)
   procent = int((rigtig / 40) * 100)
+  
+if bland.lower() == "ja" or bland.lower() == "j":
+  if sprog == "1" and bland == "ja":
+      for i in range(40):
+          antal = random.randint(0, 39)
 
+          while True:
+              if antal in antal_l:
+                  antal = random.randint(0, 39)
+                  continue
+              else:
+                  break
 
-if sprog == "2" and bland.lower() == "nej":
-    for i in range(40):
-        gang = gang + 1
-        print(gang)
-        # her starter spørgsmålene
-        word = l_da[antal]
-        print(word)
-        svar = input("")
+          antal_l.append(antal)
+          gang = gang + 1
+          print(gang)
+          # her starter spørgsmålene
+          word = l_ty[antal]
+          print(word)
+          svar = input("")
 
-        if svar.lower() == l_ty[antal].lower():
-            print("rigtig")
-            print()
-            rigtig = rigtig + 1
-        else:
-            print(f"forkert. '{word}' på tysk er '{l_ty[antal]}'")
-            print()
-            forkert_l.append(word)
-            forkert = forkert + 1
-        antal = antal + 1
-        continue
+          if svar.lower() == l_da[antal].lower():
+              print("rigtig")
+              print()
+              rigtig = rigtig + 1
+          else:
+              print(f"forkert. '{word}' på dansk er '{l_da[antal]}'")
+              print()
+              forkert_l.append(word)
+              forkert = forkert + 1
 
-if sprog == "1" and bland == "ja":
-    for i in range(40):
-        antal = random.randint(0, 39)
+          if gang == 40:
+              break
+          else:
+              continue
 
-        while True:
-            if antal in antal_l:
-                antal = random.randint(0, 39)
-                continue
-            else:
-                break
+  if sprog == "2" and bland == "ja":
 
-        antal_l.append(antal)
-        gang = gang + 1
-        print(gang)
-        # her starter spørgsmålene
-        word = l_ty[antal]
-        print(word)
-        svar = input("")
+      for i in range(40):
+          antal = random.randint(0, 39)
 
-        if svar.lower() == l_da[antal].lower():
-            print("rigtig")
-            print()
-            rigtig = rigtig + 1
-        else:
-            print(f"forkert. '{word}' på dansk er '{l_da[antal]}'")
-            print()
-            forkert_l.append(word)
-            forkert = forkert + 1
+          while True:
+              if antal in antal_l:
+                  antal = random.randint(0, 39)
+                  continue
+              else:
+                  break
 
-        if gang == 40:
-            break
-        else:
-            continue
+          antal_l.append(antal)
+          gang = gang + 1
+          print(gang)
+          # her starter spørgsmålene
+          word = l_da[antal]
+          print(word)
+          svar = input("")
 
-if sprog == "2" and bland == "ja":
+          if svar.lower() == l_ty[antal].lower():
+              print("rigtig")
+              print()
+              rigtig = rigtig + 1
+          else:
+              print(f"forkert. {word} på tysk er {l_ty[antal]}")
+              print()
+              forkert_l.append(word)
+              forkert = forkert + 1
 
-    for i in range(40):
-        antal = random.randint(0, 39)
-
-        while True:
-            if antal in antal_l:
-                antal = random.randint(0, 39)
-                continue
-            else:
-                break
-
-        antal_l.append(antal)
-        gang = gang + 1
-        print(gang)
-        # her starter spørgsmålene
-        word = l_da[antal]
-        print(word)
-        svar = input("")
-
-        if svar.lower() == l_ty[antal].lower():
-            print("rigtig")
-            print()
-            rigtig = rigtig + 1
-        else:
-            print(f"forkert. {word} på tysk er {l_ty[antal]}")
-            print()
-            forkert_l.append(word)
-            forkert = forkert + 1
-
-        if gang == 40:
-            break
-        else:
-            continue
+          if gang == 40:
+              break
+          else:
+              continue
 
 procent = int((rigtig / 40) * 100)
 
@@ -263,38 +251,10 @@ gang = 0
 
 antal_l = [
 ]
-if sprog == "1":
-  tyskTilDansk()
 
-if sprog == "2":
-    print("Her kommer de ord du fik forkerte")
-    print("")
+tyskTilDansk()
 
-    for i in range(forkert):
-        gang = gang + 1
-        print(gang)
-        forkertToList = forkert - 1
-        antal = random.randint(0, forkertToList)
 
-        while True:
-            if antal in antal_l:
-                random.randint(0, forkertToList)
-                continue
-            else:
-                break
-        print(forkert_l[antal])
-        svar2 = input("")
-
-        if svar2.lower() == l_da[antal].lower():
-            print("Rigtigt")
-            print()
-            rigtig = rigtig + 1
-        else:
-            print("forkert")
-            print("")
-            # print(f"Forkert. '{forkert_l[antal]}' er '{}' ")
-            forkert2 = forkert + 1
-            continue
 # helt slutning
 print(f"Finnish! På 1. og 2. forsøg fik du {rigtig} rigtige og {forkert} forkerte")
 print(f"Du fik så {procent}% rigtige.")
