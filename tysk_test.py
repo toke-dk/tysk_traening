@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import random
+import time
 
 def start():
   print("1: Fra Tysk til Dansk. ")
@@ -20,6 +21,7 @@ while True:
     start()
     sprog = input("")
     print()
+forsøg = 0
 
 def ordene(index_liste):
   gang = 0
@@ -43,7 +45,7 @@ def ordene(index_liste):
         rigtig = rigtig + 1
         index_liste.remove(index_liste[gang])
       else:
-        print(f"forkert. '{word_ty}' på dansk er '{word_da}'")
+        print(f"Forkert. '{word_ty}' på dansk er '{word_da}'")
         print()
         forkert = forkert + 1
         gang = gang + 1
@@ -60,7 +62,7 @@ def ordene(index_liste):
         rigtig = rigtig + 1
         index_liste.remove(index_liste[gang])
       else:
-        print(f"forkert. '{word_da}' på tysk er '{word_ty}'")
+        print(f"Forkert. '{word_da}' på tysk er '{word_ty}'")
         print()
         forkert = forkert + 1
         gang = gang + 1
@@ -164,37 +166,44 @@ l_da = [
     "Her",
 ]
 
-if sprog == "1" or sprog == "2":
-  rand_num = random.randint(0, (len(glade_komentare) - 1))
-  øve_liste = []
-  for i in range(40):
-    øve_liste.append(i)
-  (rigtig, forkert, rest_liste) = ordene(øve_liste)
-  procent = int((rigtig / 40) * 100)  
-  # efter 1. forsøg
+
+rand_num = random.randint(0, (len(glade_komentare) - 1))
+øve_liste = []
+for i in range(40):
+  øve_liste.append(i)
+start_tid = time.time()
+(rigtig, forkert, rest_liste) = ordene(øve_liste)
+forsøg = forsøg + 1
+procent = int((rigtig / 40) * 100)  
+# efter 1. forsøg
+time.sleep(1.4)
+clear_screen()
+print(f"Du fik '{rigtig}' rigtige, og '{forkert}' forkerte ")
+print(f'Du fik {procent}% rigtige')
+print("")
+print(f"{glade_komentare[rand_num]}")
+input("Nu kommer de forkerte (tryk enter)")
+print("")
+# her 
+gang = 0
+
+while len(rest_liste) > 0:
+  (rigtig, forkert, rest_liste) = ordene(rest_liste)
+  procent = int((rigtig / 40) * 100)
+  time.sleep(1.4)
   clear_screen()
-  print(f"Du fik '{rigtig}' rigtige, og '{forkert}' forkerte ")
-  print(f'Du fik {procent}% rigtige')
+  print(f"Der er kun {len(rest_liste)} ord tilbage")
   print("")
-  print(f"{glade_komentare[rand_num]}")
-  input("Nu kommer de forkerte (tryk enter)")
-  print("")
-  # her 
-  gang = 0
-  forsøg = 0
+  forsøg = forsøg + 1
+slut_tid = time.time()
+sekunder = (slut_tid - start_tid) % 60
+minutter = (slut_tid - start_tid) // 60
 
-  while len(rest_liste) > 0:
-    (rigtig, forkert, rest_liste) = ordene(rest_liste)
-    procent = int((rigtig / 40) * 100)
-    clear_screen()
-    print(f"Der er kun {len(rest_liste)} ord tilbage")
-    print("")
-    forsøg = forsøg + 1
+# helt slutning
+print("Tillykke. Du gjorde det")
+print(f"Det tog dig {forsøg} forsøg at lave 100% rigtige")
+print(f"{glade_komentare[rand_num]}")
+input("Her kommer din tid: (tryk enter)")
+print(f"Minutter: {int(minutter)}")
+print(f"Sekunder: {int(sekunder)}")
 
-  # helt slutning
-  print("Tillykke. Du gjorde det")
-  print(f"Det tog dig {forsøg} forsøg at lave 100% rigtige")
-  print(f"{glade_komentare[rand_num]}")
-else:
-  print("Jeg forstår ikke")
-  start()
