@@ -1,29 +1,78 @@
 #!/usr/bin/env python3
-
 import random
+import time
 
-print("1: Fra Tysk til Dansk. ")
-print("2: Fra Dansk til Tysk. ")
+def start():
+  print("1: Fra Tysk til Dansk. ")
+  print("2: Fra Dansk til Tysk. ")
 
+def clear_screen():
+  print("\033c", end="")
+
+start()
 sprog = input("")
-
-print("Skal de blandes? ja/nej")
-
-bland = input("")
-
 print()
 
-antal = 0
-gang = 0
-rigtig = 0
-forkert = 0
+while True:
+  start_tid = time.time()
+  if sprog == "1" or sprog == "2":
+    break
+  else:
+    print("Ugyldig kommando")
+    start()
+    sprog = input("")
+    print()
+forsøg = 0
+
+def ordene(index_liste):
+  gang = 0
+  rigtig = 0
+  forkert = 0
+
+  random.shuffle(index_liste)
+
+  for v in range(len(index_liste)):
+    print(v + 1)
+    # her starter spørgsmålene
+    if sprog.lower() == "1":
+      word_ty = l_ty[index_liste[gang]]
+      word_da = l_da[index_liste[gang]]
+      print(word_ty)
+      svar = input("")
+
+      if svar.lower() == word_da.lower():
+        print("Rigtig")
+        print()
+        rigtig = rigtig + 1
+        index_liste.remove(index_liste[gang])
+      else:
+        print(f"Forkert. '{word_ty}' på dansk er '{word_da}'")
+        print()
+        forkert = forkert + 1
+        gang = gang + 1
+
+    elif sprog.lower() == "2":
+      word_ty = l_ty[index_liste[gang]]
+      word_da = l_da[index_liste[gang]]
+      print(word_da)
+      svar = input("")
+
+      if svar.lower() == word_ty.lower():
+        print("Rigtig")
+        print()
+        rigtig = rigtig + 1
+        index_liste.remove(index_liste[gang])
+      else:
+        print(f"Forkert. '{word_da}' på tysk er '{word_ty}'")
+        print()
+        forkert = forkert + 1
+        gang = gang + 1
+  return (rigtig, forkert, index_liste)
 
 antal_l = [
 ]
-
 forkert_l = [
 ]
-
 glade_komentare = [
     "Godt gået",
     "Super flot",
@@ -33,9 +82,6 @@ glade_komentare = [
     "Du styrer få vildt",
     "Virkelig flot"
 ]
-
-rand_num = random.randint(0, len(glade_komentare))
-
 l_ty = [
     "Freunde",
     "Woher",
@@ -78,7 +124,6 @@ l_ty = [
     "Wieder",
     "Hier"
 ]
-
 l_da = [
     "Ven",
     "Hvorfra",
@@ -122,206 +167,43 @@ l_da = [
     "Her",
 ]
 
-if sprog == "1" and bland.lower() == "nej" or bland.lower() == "n":
 
-    for i in range(40):
-        gang = gang + 1
-        print(gang)
-        # her starter spørgsmålene
-        word = l_ty[antal]
-        print(word)
-        svar = input("")
-
-        if svar.lower() == l_da[antal].lower():
-            print("rigtig")
-            print()
-            rigtig = rigtig + 1
-        else:
-            print(f"forkert. '{word}' på dansk er '{l_da[antal]}'")
-            print()
-            forkert = forkert + 1
-            forkert_l.append(word)
-        antal = antal + 1
-        continue
-
-if sprog == "2" and bland.lower() == "nej":
-    for i in range(40):
-        gang = gang + 1
-        print(gang)
-        # her starter spørgsmålene
-        word = l_da[antal]
-        print(word)
-        svar = input("")
-
-        if svar.lower() == l_ty[antal].lower():
-            print("rigtig")
-            print()
-            rigtig = rigtig + 1
-        else:
-            print(f"forkert. '{word}' på tysk er '{l_ty[antal]}'")
-            print()
-            forkert_l.append(word)
-            forkert = forkert + 1
-        antal = antal + 1
-        continue
-
-if sprog == "1" and bland == "ja":
-    for i in range(40):
-        antal = random.randint(0, 39)
-
-        while True:
-            if antal in antal_l:
-                antal = random.randint(0, 39)
-                continue
-            else:
-                break
-
-        antal_l.append(antal)
-        gang = gang + 1
-        print(gang)
-        # her starter spørgsmålene
-        word = l_ty[antal]
-        print(word)
-        svar = input("")
-
-        if svar.lower() == l_da[antal].lower():
-            print("rigtig")
-            print()
-            rigtig = rigtig + 1
-        else:
-            print(f"forkert. '{word}' på dansk er '{l_da[antal]}'")
-            print()
-            forkert_l.append(word)
-            forkert = forkert + 1
-
-        if gang == 40:
-            break
-        else:
-            continue
-
-if sprog == "2" and bland == "ja":
-
-    for i in range(40):
-        antal = random.randint(0, 39)
-
-        while True:
-            if antal in antal_l:
-                antal = random.randint(0, 39)
-                continue
-            else:
-                break
-
-        antal_l.append(antal)
-        gang = gang + 1
-        print(gang)
-        # her starter spørgsmålene
-        word = l_da[antal]
-        print(word)
-        svar = input("")
-
-        if svar.lower() == l_ty[antal].lower():
-            print("rigtig")
-            print()
-            rigtig = rigtig + 1
-        else:
-            print(f"forkert. {word} på tysk er {l_ty[antal]}")
-            print()
-            forkert_l.append(word)
-            forkert = forkert + 1
-
-        if gang == 40:
-            break
-        else:
-            continue
-
-else:
-    print("jeg forstår ikke")
-
+rand_num = random.randint(0, (len(glade_komentare) - 1))
+øve_liste = []
+for i in range(40):
+  øve_liste.append(i)
+(rigtig, forkert, rest_liste) = ordene(øve_liste)
+forsøg = forsøg + 1
 procent = int((rigtig / 40) * 100)
-
 # efter 1. forsøg
-
-print(f"Finnish! Du fik '{rigtig}' rigte, og '{forkert}' forkerte ")
+time.sleep(1.4)
+clear_screen()
+print(f"Du fik '{rigtig}' rigtige, og '{forkert}' forkerte ")
 print(f'Du fik {procent}% rigtige')
 print("")
 print(f"{glade_komentare[rand_num]}")
-øve = print("Vil du øve de forkerte? ja/nej")
-
-øve_svar = input("")
-
-# her kommer 2. forsøg
-
-
+input("Nu kommer de forkerte (tryk enter)")
+print("")
+# her
 gang = 0
 
-antal_l = [
+while len(rest_liste) > 0:
+  (rigtig, forkert, rest_liste) = ordene(rest_liste)
+  procent = int((rigtig / 40) * 100)
+  time.sleep(1.4)
+  clear_screen()
+  print(f"Der er kun {len(rest_liste)} ord tilbage")
+  print("")
+  forsøg = forsøg + 1
 
-]
-
-if øve_svar.lower() == "ja" and sprog == "1":
-    print("Her kommer de ord du fik forkerte")
-    print("")
-    forkert = forkert - 1
-
-    for i in range(forkert):
-        gang = gang + 1
-        print(gang)
-        antal = random.randint(0, forkert)
-
-        while True:
-            if antal in antal_l:
-                antal = random.randint(0, forkert)
-                continue
-            else:
-                break
-        antal_l.append(antal)
-        word = forkert_l[antal]
-        print(word)
-        svar2 = input("")
-
-        if svar2.lower() == l_da[antal].lower():
-            print("Rigtigt")
-            print()
-            rigtig = rigtig + 1
-        else:
-            print("forkert")
-            print("")
-            # print(f"Forkert. 'word' er '{}' ")
-            forkert2 = forkert + 1
-
-            continue
-
-if øve_svar.lower() == "ja" and sprog == "2":
-    print("Her kommer de ord du fik forkerte")
-    print("")
-
-    for i in range(forkert):
-        gang = gang + 1
-        print(gang)
-        forkertToList = forkert - 1
-        antal = random.randint(0, forkertToList)
-
-        while True:
-            if antal in antal_l:
-                random.randint(0, forkertToList)
-                continue
-            else:
-                break
-        print(forkert_l[antal])
-        svar2 = input("")
-
-        if svar2.lower() == l_da[antal].lower():
-            print("Rigtigt")
-            print()
-            rigtig = rigtig + 1
-        else:
-            print("forkert")
-            print("")
-            # print(f"Forkert. '{forkert_l[antal]}' er '{}' ")
-            forkert2 = forkert + 1
-            continue
 # helt slutning
-print(f"Finnish! På 1. og 2. forsøg fik du {rigtig} rigtige og {forkert + forkert2} forkerte")
-print(f"Du fik så {procent}% rigtige.")
+slut_tid = time.time()
+sekunder = (slut_tid - start_tid) % 60
+minutter = (slut_tid - start_tid) // 60
+print("Tillykke. Du gjorde det")
+print(f"Det tog dig {forsøg} forsøg at lave 100% rigtige")
 print(f"{glade_komentare[rand_num]}")
+input(f"Det tog: (tryk enter)")
+print(f"{int(minutter)} Minutter")
+print(f"{int(sekunder)} Sekunder")
 
