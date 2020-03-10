@@ -79,7 +79,8 @@ glade_komentare = [
     "Sådan dér",
     "Det kører med klatten fister",
     "Du styrer få vildt",
-    "Virkelig flot"
+    "Virkelig flot",
+    "Mega godt"
 ]
 l_ty = [
     "Freunde",
@@ -206,4 +207,5 @@ print(f"{glade_komentare[rand_num]}")
 input("Her kommer din tid: (tryk enter)")
 print(f"Minutter: {int(minutter)}")
 print(f"Sekunder: {int(sekunder)}")
+
 
