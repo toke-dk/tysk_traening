@@ -80,7 +80,8 @@ glade_komentare = [
     "Det kører med klatten fister",
     "Du styrer få vildt",
     "Virkelig flot",
-    "Mega godt"
+    "Mega godt",
+    "Du er bare så god!"
 ]
 l_ty = [
     "Freunde",
