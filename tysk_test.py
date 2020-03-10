@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import random
 import time
+import lister
 
 def start():
   print("1: Fra Tysk til Dansk. ")
@@ -34,8 +35,8 @@ def ordene(index_liste):
     print(v + 1)
     # her starter spørgsmålene
     if sprog.lower() == "1":
-      word_ty = l_ty[index_liste[gang]]
-      word_da = l_da[index_liste[gang]]
+      word_ty = lister.l_ty[index_liste[gang]]
+      word_da = lister.l_da[index_liste[gang]]
       print(word_ty)
       svar = input("")
 
@@ -51,8 +52,8 @@ def ordene(index_liste):
         gang = gang + 1
 
     elif sprog.lower() == "2":
-      word_ty = l_ty[index_liste[gang]]
-      word_da = l_da[index_liste[gang]]
+      word_ty = lister.l_ty[index_liste[gang]]
+      word_da = lister.l_da[index_liste[gang]]
       print(word_da)
       svar = input("")
 
@@ -72,104 +73,9 @@ antal_l = [
 ]
 forkert_l = [
 ]
-glade_komentare = [
-    "Godt gået",
-    "Super flot",
-    "Fantastisk gjort",
-    "Sådan dér",
-    "Det kører med klatten fister",
-    "Du styrer få vildt",
-    "Virkelig flot",
-    "Mega godt",
-    "Du er bare så god!"
-]
-l_ty = [
-    "Freunde",
-    "Woher",
-    "Was",
-    "Welche",
-    "Lieblingstier",
-    "Essen",
-    "Freundschaft",
-    "Geht",
-    "Wo",
-    "Herbst",
-    "Jahreszeiten",
-    "Machen",
-    "Spass",
-    "Leicht",
-    "Schwer",
-    "Scheint",
-    "Wenn",
-    "Besonders",
-    "Schlafen",
-    "Wetter",
-    "Laufen",
-    "Tanzen",
-    "Antwort",
-    "Trinken",
-    "Viele",
-    "Sehr",
-    "Glaube",
-    "Entschuldigung",
-    "Schon",
-    "Einige",
-    "Hoffe",
-    "Versteht",
-    "Gemütlich",
-    "Links",
-    "Rechts",
-    "Weit",
-    "geradeaus",
-    "Gesund",
-    "Wieder",
-    "Hier"
-]
-l_da = [
-    "Ven",
-    "Hvorfra",
-    "Hvad",
-    "Hvilke",
-    "Yndlingsdyr",
-    "Spise",
-    "Venskab",
-    "Går",
-    "Hvor",
-    "Efterår",
-    "Årstider",
-    "Laver",
-    "Sjov",
-    "Let",
-    "Svært",
-    "Skinner",
-    "Når",
-    "Særligt",
-    "Sove",
-    "Vejr",
-    "Løbe",
-    "Danse",
-    "Svar",
-    "Drikke",
-    "Mange",
-    "Meget",
-    "Tror",
-    "Undskyld",
-    "Allerede",
-    "Nogle",
-    "Håber",
-    "Forstår",
-    "Hyggeligt",
-    "Venstre",
-    "Højre",
-    "Langt",
-    "Ligeud",
-    "Sund",
-    "Igen",
-    "Her",
-]
 
 
-rand_num = random.randint(0, (len(glade_komentare) - 1))
+rand_num = random.randint(0, (len(lister.glade_komentare) - 1))
 øve_liste = []
 for i in range(40):
   øve_liste.append(i)
@@ -183,7 +89,7 @@ clear_screen()
 print(f"Du fik '{rigtig}' rigtige, og '{forkert}' forkerte ")
 print(f'Du fik {procent}% rigtige')
 print("")
-print(f"{glade_komentare[rand_num]}")
+print(f"{lister.glade_komentare[rand_num]}")
 input("Nu kommer de forkerte (tryk enter)")
 print("")
 # her 
@@ -204,7 +110,7 @@ minutter = (slut_tid - start_tid) // 60
 # helt slutning
 print("Tillykke. Du gjorde det")
 print(f"Det tog dig {forsøg} forsøg at lave 100% rigtige")
-print(f"{glade_komentare[rand_num]}")
+print(f"{lister.glade_komentare[rand_num]}")
 input("Her kommer din tid: (tryk enter)")
 print(f"Minutter: {int(minutter)}")
 print(f"Sekunder: {int(sekunder)}")
