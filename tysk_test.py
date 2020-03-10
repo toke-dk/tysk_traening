@@ -14,7 +14,6 @@ sprog = input("")
 print()
 
 while True:
-  start_tid = time.time()
   if sprog == "1" or sprog == "2":
     break
   else:
@@ -172,6 +171,7 @@ rand_num = random.randint(0, (len(glade_komentare) - 1))
 øve_liste = []
 for i in range(40):
   øve_liste.append(i)
+start_tid = time.time()
 (rigtig, forkert, rest_liste) = ordene(øve_liste)
 forsøg = forsøg + 1
 procent = int((rigtig / 40) * 100)
@@ -184,7 +184,7 @@ print("")
 print(f"{glade_komentare[rand_num]}")
 input("Nu kommer de forkerte (tryk enter)")
 print("")
-# her
+# her 
 gang = 0
 
 while len(rest_liste) > 0:
@@ -195,15 +195,15 @@ while len(rest_liste) > 0:
   print(f"Der er kun {len(rest_liste)} ord tilbage")
   print("")
   forsøg = forsøg + 1
-
-# helt slutning
 slut_tid = time.time()
 sekunder = (slut_tid - start_tid) % 60
 minutter = (slut_tid - start_tid) // 60
+
+# helt slutning
 print("Tillykke. Du gjorde det")
 print(f"Det tog dig {forsøg} forsøg at lave 100% rigtige")
 print(f"{glade_komentare[rand_num]}")
-input(f"Det tog: (tryk enter)")
-print(f"{int(minutter)} Minutter")
-print(f"{int(sekunder)} Sekunder")
+input("Her kommer din tid: (tryk enter)")
+print(f"Minutter: {int(minutter)}")
+print(f"Sekunder: {int(sekunder)}")
 
