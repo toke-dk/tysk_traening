@@ -45,7 +45,6 @@ while True:
                 adgangskode_fra_db = result[0][1]
                 brugernavn_fra_db = result[0][0]
                 if adgangskode_input == adgangskode_fra_db:
-                    print("Du er logget ind")
                     break
                 print()
                 print("Forkert kode")
@@ -58,4 +57,3 @@ while True:
         break
     else:
         print("Ugyldig kommando")
-print("done")
