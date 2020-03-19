@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
+# psql -h toke-sprog.cr0dt7iqlyfp.eu-central-1.rds.amazonaws.com sprog_app sprog_reader
 import random
 import time
 import lister
 import brugernavn
-import sqlite3
+import psycopg2
+import os
 
-conn = sqlite3.connect('ord.db')
+conn = psycopg2.connect(user=os.getenv("SPROG_DB_USER"),
+                        password=os.getenv("SPROG_DB_PW"),
+                        host="toke-sprog.cr0dt7iqlyfp.eu-central-1.rds.amazonaws.com",
+                        port="5432",
+                        database="sprog_app")
 
 c = conn.cursor()
 
@@ -18,9 +24,21 @@ def start():
 def clear_screen():
     print("\033c", end="")
 
+
 en_gang_til = True
 
 clear_screen()
+brugernavn.c.execute("""SELECT * FROM brugernavn
+            ORDER BY tid_sekunder ASC;""")
+brugernavn.conn.commit()
+brugernavn.c.execute("SELECT brugernavn, tid_sekunder FROM brugernavn LIMIT 5")
+brugernavn.conn.commit()
+topfem_liste = brugernavn.c.fetchall()
+print("Dette er top 5 listen for personerne med bedst tid:")
+for i in range(len(topfem_liste)):
+    print(f"{i + 1}: {topfem_liste[i][0]}, {topfem_liste[i][1]} sekunder")
+
+print()
 print(f"Velkommen {brugernavn.brugernavn_fra_db}")
 brugernavn.c.execute(f"""SELECT tid_sekunder 
                         FROM brugernavn
@@ -82,7 +100,7 @@ while en_gang_til:
                 rigtig = rigtig + 1
                 index_liste.remove(index_liste[naturlig_tal])
             else:
-                print(f"Ikke helt. '{ resultat[0][screen_printet_word]}' på {land} er '{rigtige_svar}'")
+                print(f"Ikke helt. '{resultat[0][screen_printet_word]}' på {land} er '{rigtige_svar}'")
                 forkert = forkert + 1
                 naturlig_tal = naturlig_tal + 1
             print()

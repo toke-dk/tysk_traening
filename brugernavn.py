@@ -1,11 +1,14 @@
 import sqlite3
 import getpass
+import psycopg2
+import os
 
-conn = sqlite3.connect('brugernavn.db')
-
+conn = psycopg2.connect(user=os.getenv("SPROG_DB_USER"),
+                        password=os.getenv("SPROG_DB_PW"),
+                        host="toke-sprog.cr0dt7iqlyfp.eu-central-1.rds.amazonaws.com",
+                        port="5432",
+                        database="sprog_app")
 c = conn.cursor()
-
-
 while True:
     try:
         print("1: Log ind.")
