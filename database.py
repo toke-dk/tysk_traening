@@ -3,8 +3,8 @@ import psycopg2
 import lister
 import os
 
-conn = psycopg2.connect(user=os.getenv("SPROG_DB_USER"),
-                        password=os.getenv("SPROG_DB_PW"),
+conn = psycopg2.connect(user="sprog_app_user",
+                        password="tokes_spr0gsp1l",
                         host="toke-sprog.cr0dt7iqlyfp.eu-central-1.rds.amazonaws.com",
                         port="5432",
                         database="sprog_app")
