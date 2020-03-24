@@ -7,13 +7,25 @@ import brugernavn
 import psycopg2
 import os
 
-conn = psycopg2.connect(user="sprog_app_user",
-                        password="tokes_spr0gsp1l",
-                        host="toke-sprog.cr0dt7iqlyfp.eu-central-1.rds.amazonaws.com",
-                        port="5432",
-                        database="sprog_app")
 
-c = conn.cursor()
+def highscore():
+    conn = psycopg2.connect(user="sprog_app_user",
+                            password="tokes_spr0gsp1l",
+                            host="toke-sprog.cr0dt7iqlyfp.eu-central-1.rds.amazonaws.com",
+                            port="5432",
+                            database="sprog_app")
+
+    c = conn.cursor()
+
+    c.execute("""SELECT * FROM brugernavn
+                ORDER BY tid_sekunder ASC;""")
+    conn.commit()
+    c.execute("SELECT brugernavn, tid_sekunder FROM brugernavn LIMIT 5")
+    conn.commit()
+    topfem_liste = c.fetchall()
+    print("Dette er top 5 listen for personerne med bedst tid:")
+    for i in range(len(topfem_liste)):
+        print(f"{i + 1}: {topfem_liste[i][0]}, {topfem_liste[i][1] // 60} Minutter {topfem_liste[i][1] % 60} Sekunder")
 
 
 def start():
@@ -25,18 +37,14 @@ def clear_screen():
     print("\033c", end="")
 
 
+highscore()
+print()
+brugernavn.login()
+
 en_gang_til = True
 
 clear_screen()
-brugernavn.c.execute("""SELECT * FROM brugernavn
-            ORDER BY tid_sekunder ASC;""")
-brugernavn.conn.commit()
-brugernavn.c.execute("SELECT brugernavn, tid_sekunder FROM brugernavn LIMIT 5")
-brugernavn.conn.commit()
-topfem_liste = brugernavn.c.fetchall()
-print("Dette er top 5 listen for personerne med bedst tid:")
-for i in range(len(topfem_liste)):
-    print(f"{i + 1}: {topfem_liste[i][0]}, {topfem_liste[i][1] // 60} Minutter {topfem_liste[i][1] % 60} Sekunder")
+
 
 print()
 print(f"Velkommen {brugernavn.brugernavn_fra_db}")
@@ -155,6 +163,7 @@ while en_gang_til:
     input("Her kommer din tid: (tryk enter)")
     print(f"Minutter: {int(minutter)}")
     print(f"Sekunder: {int(sekunder)}")
+    highscore()
     # Vil man gerne blive ved
     print()
     print("Vil du prøve igen? J/N")
