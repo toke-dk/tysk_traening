@@ -36,7 +36,7 @@ brugernavn.conn.commit()
 topfem_liste = brugernavn.c.fetchall()
 print("Dette er top 5 listen for personerne med bedst tid:")
 for i in range(len(topfem_liste)):
-    print(f"{i + 1}: {topfem_liste[i][0]}, {topfem_liste[i][1]} sekunder")
+    print(f"{i + 1}: {topfem_liste[i][0]}, {topfem_liste[i][1] // 60} Minutter {topfem_liste[i][1] % 60} Sekunder")
 
 print()
 print(f"Velkommen {brugernavn.brugernavn_fra_db}")
