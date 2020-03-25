@@ -23,18 +23,28 @@ def login():
             while True:
                 try:
                     brugernavn_input = input("Brugernavn: ")
+                    print()
+                    print("ADVARSEL: Adgangskoden bliver ikke krypteret! Brug ikke ny ligegyldig adgangskode.")
                     adgangskode_input = getpass.getpass("Adgangskode: ")
 
-                    sql = f"""INSERT INTO brugernavn (brugernavn, adgangskode)
-                        VALUES ('{brugernavn_input}', '{adgangskode_input}')"""
-                    c.execute(sql)
-                    conn.commit()
-                    c.execute("SELECT * FROM brugernavn")
-                except sqlite3.IntegrityError:
+                    print("Gentag din adgangskode")
+                    adgangskodeto = getpass.getpass("Adgangskode")
+                    if adgangskode_input == adgangskodeto:
+                        sql = f"""INSERT INTO brugernavn (brugernavn, adgangskode)
+                            VALUES ('{brugernavn_input}', '{adgangskode_input}')"""
+                        c.execute(sql)
+                        conn.commit()
+                        c.execute("SELECT * FROM brugernavn")
+                    else:
+                        print("Forkert adgangskode")
+                        print()
+                        continue
+                except psycopg2.IntegrityError:
                     print()
                     print("Brugernavn er allerede taget")
                     print()
                     continue
+
                 break
             continue
 
@@ -62,3 +72,6 @@ def login():
             break
         else:
             print("Ugyldig kommando")
+
+
+login()

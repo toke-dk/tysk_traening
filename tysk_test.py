@@ -25,7 +25,11 @@ def highscore():
     topfem_liste = c.fetchall()
     print("Dette er top 5 listen for personerne med bedst tid:")
     for i in range(len(topfem_liste)):
-        print(f"{i + 1}: {topfem_liste[i][0]}, {topfem_liste[i][1] // 60} Minutter {topfem_liste[i][1] % 60} Sekunder")
+        if topfem_liste[i][1] != None:
+
+            print(f"{i + 1}: {topfem_liste[i][0]}, {topfem_liste[i][1]} Minutter {topfem_liste[i][1]} Sekunder")
+        else:
+            print(f"{i + 1}: {topfem_liste[i][0]}, 0 Minutter 0 Sekunder")
 
 
 def start():
