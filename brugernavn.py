@@ -4,11 +4,15 @@ import psycopg2
 import os
 
 def login():
+    if os.getenv("SPROG_DB_NAME") is not None:
+        db_name = "sprog_app_dev"
+    else:
+        db_name = "sprog_app"
     conn = psycopg2.connect(user="sprog_app_user",
                             password="tokes_spr0gsp1l",
                             host="toke-sprog.cr0dt7iqlyfp.eu-central-1.rds.amazonaws.com",
                             port="5432",
-                            database="sprog_app")
+                            database=db_name)
     c = conn.cursor()
     while True:
         try:
