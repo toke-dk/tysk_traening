@@ -158,10 +158,10 @@ while en_gang_til:
     sekunder = (slut_tid_sekunder - start_tid) % 60
     minutter = (slut_tid_sekunder - start_tid) // 60
 
-    brugernavn.c.execute(f"""UPDATE brugernavn
+    c.execute(f"""UPDATE brugernavn
                             SET tid_sekunder=({int(slut_tid_sekunder - start_tid)})
-                            WHERE brugernavn='{brugernavn.brugernavn_fra_db}'""")
-    brugernavn.conn.commit()
+                            WHERE brugernavn='{brugernavn_fra_db}'""")
+    conn.commit()
     # helt slutning
     print("Tillykke. Du gjorde det")
     print(f"Det tog dig {forsøg} forsøg at lave 100% rigtige")
