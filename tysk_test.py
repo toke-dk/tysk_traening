@@ -30,7 +30,7 @@ def highscore():
 
             print(f"{i + 1}: {topfem_liste[i][0]}, {topfem_liste[i][1] // 60} Minutter {topfem_liste[i][1] % 60} Sekunder")
         else:
-            print(f"{i + 1}: {topfem_liste[i][0]}, 0 Minutter 0 Sekunder")
+            print(f"{i + 1}: {topfem_liste[i][0]}, ingen tid endnu")
     return c, conn
 
 
