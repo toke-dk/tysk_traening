@@ -23,7 +23,7 @@ def login():
                 try:
                     brugernavn_input = input("Brugernavn: ")
                     print()
-                    print("ADVARSEL: Adgangskoden bliver ikke krypteret! Brug ikke ny ligegyldig adgangskode.")
+                    print("ADVARSEL: Adgangskoden bliver ikke krypteret! Brug en ny ligegyldig adgangskode.")
                     adgangskode_input = getpass.getpass("Adgangskode: ")
 
                     print("Gentag din adgangskode")
