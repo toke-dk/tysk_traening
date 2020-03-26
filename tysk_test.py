@@ -59,8 +59,7 @@ c.execute(f"""SELECT tid_sekunder
                         WHERE brugernavn='{brugernavn_fra_db}'""")
 conn.commit()
 bruger_tid = c.fetchall()
-input(f"Din sidste tid er {bruger_tid[0][0] // 60} Minutter og {bruger_tid[0][0] % 60} sekunder (Tryk enter for at starte)")
-print(bruger_tid[0][0])
+input(f"Din bedste tid er {bruger_tid[0][0] // 60} Minutter og {bruger_tid[0][0] % 60} sekunder (Tryk enter for at starte)")
 
 while en_gang_til:
     start()
