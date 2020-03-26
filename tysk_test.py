@@ -25,7 +25,6 @@ def highscore():
     conn.commit()
     topfem_liste = c.fetchall()
     print("Dette er top 5 listen for personerne med bedst tid:")
-    print(topfem_liste)
     for i in range(len(topfem_liste)):
         if topfem_liste[i][1] is not None:
 
@@ -61,7 +60,7 @@ c.execute(f"""SELECT tid_sekunder
 conn.commit()
 bruger_tid = c.fetchall()
 input(f"Din sidste tid er {bruger_tid[0][0] // 60} Minutter og {bruger_tid[0][0] % 60} sekunder (Tryk enter for at starte)")
-print()
+print(bruger_tid[0][0])
 
 while en_gang_til:
     start()
@@ -138,11 +137,19 @@ while en_gang_til:
     # efter 1. forsøg
     time.sleep(1.4)
     clear_screen()
-    print(f"Du fik '{rigtig}' rigtige, og '{forkert}' forkerte ")
-    print(f'Du fik {procent}% rigtige')
-    print("")
-    print(f"{lister.glade_komentare[rand_num]}")
-    input("Nu kommer de forkerte (tryk enter)")
+    if len(rest_liste) == 0:
+        print("Sådan der!!! Første forsøg")
+        print("Du fik 40/40 rigtige første gang!!!")
+        input(f"{lister.glade_komentare[rand_num]} (enter)")
+        print("Din tid er:")
+        dit_forsøg_antal = '0'
+    else:
+        print(f"Du fik '{rigtig}' rigtige, og '{forkert}' forkerte på første forsøg")
+        print(f'Du fik {procent}% rigtige')
+        print("")
+        print(f"{lister.glade_komentare[rand_num]}")
+        input("Nu kommer de forkerte (tryk enter)")
+        dit_forsøg_antal = 'flere'
     print("")
     # her
     gang = 0
@@ -156,20 +163,29 @@ while en_gang_til:
         print("")
         forsøg = forsøg + 1
     slut_tid_sekunder = time.time()
-    sekunder = (slut_tid_sekunder - start_tid) % 60
-    minutter = (slut_tid_sekunder - start_tid) // 60
+    sekunder_i_alt = slut_tid_sekunder - start_tid
+    sekunder = sekunder_i_alt % 60
+    minutter = sekunder_i_alt // 60
 
-    c.execute(f"""UPDATE brugernavn
-                            SET tid_sekunder=({int(slut_tid_sekunder - start_tid)})
-                            WHERE brugernavn='{brugernavn_fra_db}'""")
-    conn.commit()
-    # helt slutning
-    print("Tillykke. Du gjorde det")
-    print(f"Det tog dig {forsøg} forsøg at lave 100% rigtige")
-    print(f"{lister.glade_komentare[rand_num]}")
-    input("Her kommer din tid: (tryk enter)")
+    # updater kun hvis det er bedste tid
+    if sekunder_i_alt < bruger_tid[0][0]:
+        print("Ny rekord!!")
+        print(f"Denne gang gjorde du det på {int(minutter)} minutter {int(sekunder)} sekunder")
+        total_forbedring_sekunder = bruger_tid[0][0] - sekunder_i_alt
+        input(f"Det er en forbedring med {int(total_forbedring_sekunder // 60)} Minutter {int(total_forbedring_sekunder % 60)} Sekunder (enter)")
+        c.execute(f"""UPDATE brugernavn
+                                SET tid_sekunder=({int(slut_tid_sekunder - start_tid)})
+                                WHERE brugernavn='{brugernavn_fra_db}'""")
+        conn.commit()
+    elif dit_forsøg_antal == 'flere':
+        # helt slutning
+        print("Tillykke. Du gjorde det")
+        print(f"Det tog dig {forsøg} forsøg at lave 100% rigtige")
+        print("Din tid er:")
     print(f"Minutter: {int(minutter)}")
     print(f"Sekunder: {int(sekunder)}")
+    print(f"{lister.glade_komentare[rand_num]}")
+    print()
     highscore()
     # Vil man gerne blive ved
     print()
