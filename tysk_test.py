@@ -18,13 +18,14 @@ c = conn.cursor()
 
 def highscore():
 
-    c.execute("""SELECT * FROM brugernavn
-                ORDER BY tid_sekunder ASC;""")
-    conn.commit()
-    c.execute("SELECT brugernavn, tid_sekunder FROM brugernavn LIMIT 5")
+    c.execute("""SELECT brugernavn, tid_sekunder 
+                FROM brugernavn
+                ORDER BY tid_sekunder ASC
+                LIMIT 5;""")
     conn.commit()
     topfem_liste = c.fetchall()
     print("Dette er top 5 listen for personerne med bedst tid:")
+    print(topfem_liste)
     for i in range(len(topfem_liste)):
         if topfem_liste[i][1] is not None:
 
@@ -59,7 +60,7 @@ c.execute(f"""SELECT tid_sekunder
                         WHERE brugernavn='{brugernavn_fra_db}'""")
 conn.commit()
 bruger_tid = c.fetchall()
-input(f"Din sidste tid er {bruger_tid[0][0]} sekunder (Tryk enter for at starte)")
+input(f"Din sidste tid er {bruger_tid[0][0] // 60} Minutter og {bruger_tid[0][0] % 60} sekunder (Tryk enter for at starte)")
 print()
 
 while en_gang_til:
