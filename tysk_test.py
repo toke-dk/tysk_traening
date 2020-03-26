@@ -169,7 +169,8 @@ while en_gang_til:
     # updater kun hvis det er bedste tid
     if sekunder_i_alt < bruger_tid[0][0]:
         print("Ny rekord!!")
-        print(f"Denne gang gjorde du det på {int(minutter)} minutter {int(sekunder)} sekunder")
+        print(f"Denne gang gjorde du det på {int(minutter)} Minutter {int(sekunder)} Sekunder")
+        print(f"Din sidste tid var: {bruger_tid[0][0] // 60} Minutter og {bruger_tid[0][0] % 60} Sekunder")
         total_forbedring_sekunder = bruger_tid[0][0] - sekunder_i_alt
         input(f"Det er en forbedring med {int(total_forbedring_sekunder // 60)} Minutter {int(total_forbedring_sekunder % 60)} Sekunder (enter)")
         c.execute(f"""UPDATE brugernavn
@@ -183,6 +184,7 @@ while en_gang_til:
         print("Din tid er:")
     print(f"Minutter: {int(minutter)}")
     print(f"Sekunder: {int(sekunder)}")
+    print(f"Din bedste tid er {bruger_tid[0][0] // 60} Minutter og {bruger_tid[0][0] % 60} sekunder")
     print(f"{lister.glade_komentare[rand_num]}")
     print()
     highscore()
