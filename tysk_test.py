@@ -29,10 +29,10 @@ def highscore():
     print("Dette er top 5 listen for personerne med bedst tid:")
     for i in range(len(topfem_liste)):
         if topfem_liste[i][1] is not None:
-
             print(f"{i + 1}: {topfem_liste[i][0]}, {topfem_liste[i][1] // 60} Minutter {topfem_liste[i][1] % 60} Sekunder")
         else:
             print(f"{i + 1}: {topfem_liste[i][0]}, ingen tid endnu")
+
     return c, conn
 
 
@@ -61,7 +61,10 @@ c.execute(f"""SELECT tid_sekunder
                         WHERE brugernavn='{brugernavn_fra_db}'""")
 conn.commit()
 bruger_tid = c.fetchall()
-input(f"Din bedste tid er {bruger_tid[0][0] // 60} Minutter og {bruger_tid[0][0] % 60} sekunder (Tryk enter for at starte)")
+if bruger_tid[0][0] is not None:
+    input(f"Din bedste tid er {bruger_tid[0][0] // 60} Minutter og {bruger_tid[0][0] % 60} sekunder (Tryk enter for at starte)")
+else:
+    input("Du har ingen tid endu (Enter)")
 
 while en_gang_til:
     start()
