@@ -7,15 +7,16 @@ import brugernavn
 import psycopg2
 import os
 
+conn = psycopg2.connect(user="sprog_app_user",
+                        password="tokes_spr0gsp1l",
+                        host="toke-sprog.cr0dt7iqlyfp.eu-central-1.rds.amazonaws.com",
+                        port="5432",
+                        database="sprog_app")
+
+c = conn.cursor()
+
 
 def highscore():
-    conn = psycopg2.connect(user="sprog_app_user",
-                            password="tokes_spr0gsp1l",
-                            host="toke-sprog.cr0dt7iqlyfp.eu-central-1.rds.amazonaws.com",
-                            port="5432",
-                            database="sprog_app")
-
-    c = conn.cursor()
 
     c.execute("""SELECT * FROM brugernavn
                 ORDER BY tid_sekunder ASC;""")
@@ -25,11 +26,13 @@ def highscore():
     topfem_liste = c.fetchall()
     print("Dette er top 5 listen for personerne med bedst tid:")
     for i in range(len(topfem_liste)):
-        if topfem_liste[i][1] != None:
+        if topfem_liste[i][1] is not None:
 
             print(f"{i + 1}: {topfem_liste[i][0]}, {topfem_liste[i][1]} Minutter {topfem_liste[i][1]} Sekunder")
         else:
             print(f"{i + 1}: {topfem_liste[i][0]}, 0 Minutter 0 Sekunder")
+    return c, conn
+
 
 
 def start():
@@ -43,20 +46,19 @@ def clear_screen():
 
 highscore()
 print()
-brugernavn.login()
+brugernavn_fra_db = brugernavn.login()
 
 en_gang_til = True
 
 clear_screen()
 
-
 print()
-print(f"Velkommen {brugernavn.brugernavn_fra_db}")
-brugernavn.c.execute(f"""SELECT tid_sekunder 
+print(f"Velkommen {brugernavn_fra_db}")
+c.execute(f"""SELECT tid_sekunder 
                         FROM brugernavn
-                        WHERE brugernavn='{brugernavn.brugernavn_fra_db}'""")
-brugernavn.conn.commit()
-bruger_tid = brugernavn.c.fetchall()
+                        WHERE brugernavn='{brugernavn_fra_db}'""")
+conn.commit()
+bruger_tid = c.fetchall()
 input(f"Din sidste tid er {bruger_tid[0][0]} sekunder (Tryk enter for at starte)")
 print()
 

@@ -3,7 +3,6 @@ import getpass
 import psycopg2
 import os
 
-
 def login():
     conn = psycopg2.connect(user="sprog_app_user",
                             password="tokes_spr0gsp1l",
@@ -72,6 +71,4 @@ def login():
             break
         else:
             print("Ugyldig kommando")
-
-
-login()
+    return brugernavn_fra_db
